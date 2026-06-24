@@ -21,3 +21,5 @@ TestResults/
 *.msixbundle
 
 MemoryStorageData/
+installer_work/
+dist/
