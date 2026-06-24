@@ -1,0 +1,50 @@
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Memory_Storage"
+    x:Class="Memory_Storage.SuccessDialogPage"
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="#66000000">
+
+    <Grid Padding="24" RowDefinitions="*,Auto,*">
+        <Border
+            Grid.Row="1"
+            x:Name="DialogCard"
+            WidthRequest="460"
+            HeightRequest="238"
+            Padding="24"
+            BackgroundColor="White"
+            StrokeThickness="0"
+            HorizontalOptions="Center">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="8" />
+            </Border.StrokeShape>
+
+            <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="*,Auto">
+                <VerticalStackLayout Grid.ColumnSpan="2" Spacing="16" HorizontalOptions="Center">
+                    <local:SuccessCheckView HorizontalOptions="Center" />
+                    <Label
+                        x:Name="MessageLabel"
+                        Text="Success!"
+                        FontSize="24"
+                        FontAttributes="Bold"
+                        TextColor="#17743D"
+                        HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+
+                <Button
+                    x:Name="DoneButton"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Text="完成"
+                    WidthRequest="64"
+                    HeightRequest="42"
+                    BackgroundColor="#FF6A00"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    CornerRadius="8"
+                    Clicked="DoneButton_Clicked" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

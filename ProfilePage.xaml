@@ -1,0 +1,114 @@
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Memory_Storage"
+    x:Class="Memory_Storage.ProfilePage"
+    Shell.NavBarIsVisible="False"
+    x:Name="RootPage"
+    BackgroundColor="#F7F8FA">
+
+    <Grid x:Name="RootGrid" Padding="24" RowDefinitions="*,Auto,*">
+        <Border
+            x:Name="ProfileCard"
+            Grid.Row="1"
+            WidthRequest="520"
+            Padding="30"
+            BackgroundColor="White"
+            Stroke="#E1E6EC"
+            StrokeThickness="1"
+            HorizontalOptions="Center">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="14" />
+            </Border.StrokeShape>
+
+            <VerticalStackLayout Spacing="18">
+                <Label
+                    x:Name="TitleLabel"
+                    Text="Profile"
+                    FontSize="30"
+                    FontAttributes="Bold"
+                    HorizontalTextAlignment="Center"
+                    TextColor="#14171A" />
+
+                <Border
+                    x:Name="AvatarFrame"
+                    WidthRequest="92"
+                    HeightRequest="92"
+                    BackgroundColor="#EAF5EF"
+                    StrokeThickness="0"
+                    HorizontalOptions="Center">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="46" />
+                    </Border.StrokeShape>
+                    <Grid>
+                        <Image x:Name="AvatarImage" Aspect="AspectFill" IsVisible="False" />
+                        <local:AvatarIconView x:Name="AvatarIcon" HorizontalOptions="Center" VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+
+                <Button
+                    x:Name="ChangeAvatarButton"
+                    Text="Change avatar"
+                    WidthRequest="220"
+                    HeightRequest="40"
+                    BackgroundColor="#EAF5EF"
+                    TextColor="#0F7B4D"
+                    CornerRadius="10"
+                    HorizontalOptions="Center"
+                    Clicked="ChangeAvatarButton_Clicked" />
+
+                <VerticalStackLayout Spacing="8">
+                    <Label x:Name="NameCaptionLabel" Text="User name" FontSize="13" TextColor="#5F6B7A" />
+                    <Border x:Name="NameField" Padding="14,10" BackgroundColor="#F8FAFC" Stroke="#D8DEE6" StrokeThickness="1">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="8" /></Border.StrokeShape>
+                        <Label x:Name="NameValueLabel" FontSize="15" TextColor="#14171A" />
+                    </Border>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="8">
+                    <Label x:Name="EmailCaptionLabel" Text="Email" FontSize="13" TextColor="#5F6B7A" />
+                    <Border x:Name="EmailField" Padding="14,10" BackgroundColor="#F8FAFC" Stroke="#D8DEE6" StrokeThickness="1">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="8" /></Border.StrokeShape>
+                        <Label x:Name="EmailValueLabel" FontSize="15" TextColor="#14171A" />
+                    </Border>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="8">
+                    <Label x:Name="PasswordCaptionLabel" Text="Password" FontSize="13" TextColor="#5F6B7A" />
+                    <Border x:Name="PasswordField" Padding="14,10" BackgroundColor="#F8FAFC" Stroke="#D8DEE6" StrokeThickness="1">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="8" /></Border.StrokeShape>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label x:Name="PasswordValueLabel" FontSize="15" TextColor="#14171A" VerticalTextAlignment="Center" />
+                            <Border
+                                x:Name="PasswordToggleButton"
+                                Grid.Column="1"
+                                WidthRequest="62"
+                                HeightRequest="30"
+                                BackgroundColor="Transparent"
+                                StrokeThickness="0">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="PasswordToggleButton_Tapped" />
+                                </Border.GestureRecognizers>
+                                <Label
+                                    x:Name="PasswordToggleLabel"
+                                    FontSize="14"
+                                    FontAttributes="Bold"
+                                    HorizontalTextAlignment="Center"
+                                    VerticalTextAlignment="Center" />
+                            </Border>
+                        </Grid>
+                    </Border>
+                </VerticalStackLayout>
+
+                <Button
+                    x:Name="LogoutButton"
+                    Text="Log out"
+                    HeightRequest="48"
+                    BackgroundColor="#D33A2C"
+                    TextColor="White"
+                    CornerRadius="10"
+                    Clicked="LogoutButton_Clicked" />
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

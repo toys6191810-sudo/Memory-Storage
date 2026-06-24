@@ -1,0 +1,44 @@
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Memory_Storage.SettingsPage"
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="#F7F8FA">
+
+    <Grid x:Name="RootGrid" Padding="24" RowDefinitions="*,Auto,*">
+        <Border
+            x:Name="SettingsCard"
+            Grid.Row="1"
+            Padding="28"
+            WidthRequest="560"
+            BackgroundColor="White"
+            Stroke="#E1E6EC"
+            StrokeThickness="1">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10" />
+            </Border.StrokeShape>
+
+            <VerticalStackLayout Spacing="18">
+                <Label x:Name="TitleLabel" Text="Settings" FontSize="30" FontAttributes="Bold" TextColor="#14171A" />
+
+                <VerticalStackLayout Spacing="8">
+                    <Label x:Name="LanguageLabel" Text="Language" FontSize="15" TextColor="#3C4653" />
+                    <Picker x:Name="LanguagePicker" Title="Choose language" SelectedIndexChanged="LanguagePicker_SelectedIndexChanged" />
+                </VerticalStackLayout>
+
+                <Border x:Name="ThemePanel" Padding="14" BackgroundColor="#EAF5EF" Stroke="#D8E9DF" StrokeThickness="1">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="8" />
+                    </Border.StrokeShape>
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16">
+                        <VerticalStackLayout Spacing="2">
+                            <Label x:Name="ThemeTitleLabel" Text="Light mode" FontSize="16" FontAttributes="Bold" TextColor="#14171A" />
+                            <Label x:Name="ThemeSubtitleLabel" Text="Dark mode" FontSize="13" TextColor="#5F6B7A" />
+                        </VerticalStackLayout>
+                        <Switch Grid.Column="1" x:Name="ThemeSwitch" Toggled="ThemeSwitch_Toggled" />
+                    </Grid>
+                </Border>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,69 @@
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Memory_Storage"
+    x:Class="Memory_Storage.MainPage"
+    Shell.NavBarIsVisible="False"
+    x:Name="RootPage"
+    BackgroundColor="#EAF7EF">
+
+    <Grid x:Name="RootGrid" Padding="28" RowDefinitions="*,Auto,*">
+        <local:GeometryBackgroundView
+            x:Name="GeometryBackground"
+            Grid.RowSpan="3"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill" />
+
+        <VerticalStackLayout
+            Grid.Row="1"
+            Spacing="22"
+            HorizontalOptions="Center"
+            MaximumWidthRequest="560">
+
+            <Border
+                x:Name="EyebrowPill"
+                Padding="14,8"
+                HorizontalOptions="Center"
+                BackgroundColor="#DDF3E8"
+                StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+                <Label
+                    x:Name="EyebrowLabel"
+                    Text="Today memory workspace"
+                    FontSize="13"
+                    FontAttributes="Bold"
+                    TextColor="#0F7B4D"
+                    HorizontalTextAlignment="Center" />
+            </Border>
+
+            <Label
+                x:Name="TitleLabel"
+                Text="Memory Storage"
+                FontSize="46"
+                FontAttributes="Bold"
+                TextColor="#14171A"
+                HorizontalTextAlignment="Center" />
+
+            <Label
+                x:Name="TaglineLabel"
+                Text="Organize every app, project, file, and study activity you open today."
+                FontSize="17"
+                LineHeight="1.35"
+                TextColor="#3C4653"
+                HorizontalTextAlignment="Center" />
+
+            <Button
+                x:Name="StartButton"
+                Text="Start"
+                WidthRequest="370"
+                HeightRequest="54"
+                BackgroundColor="#1E8E5A"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="12"
+                Clicked="StartButton_Clicked" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,21 @@
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Memory_Storage.RecordDetailPage"
+    Shell.NavBarIsVisible="False"
+    x:Name="RootPage"
+    BackgroundColor="#F7F8FA">
+
+    <ScrollView x:Name="RootScroll">
+        <VerticalStackLayout x:Name="DetailStack" Padding="24" Spacing="14">
+            <Label x:Name="TitleLabel" Text="" FontSize="30" FontAttributes="Bold" TextColor="#14171A" />
+            <Label Text="{Binding CabinetCode}" FontSize="18" FontAttributes="Bold" TextColor="#0F7B4D" />
+            <Label Text="{Binding DateBadge}" FontSize="15" TextColor="#5F6B7A" />
+            <Label Text="{Binding TimeText}" FontSize="15" TextColor="#5F6B7A" />
+            <Label Text="{Binding EndTimeText}" FontSize="15" TextColor="#5F6B7A" />
+            <Label Text="{Binding DurationText}" FontSize="15" TextColor="#5F6B7A" />
+            <Label Text="{Binding DisplayAppName}" FontSize="22" FontAttributes="Bold" TextColor="#14171A" />
+            <Label Text="{Binding LocalizedNote}" FontSize="15" TextColor="#3C4653" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

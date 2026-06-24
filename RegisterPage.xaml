@@ -1,0 +1,131 @@
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Memory_Storage.RegisterPage"
+    Shell.NavBarIsVisible="False"
+    x:Name="RootPage"
+    BackgroundColor="#F7F8FA">
+
+    <Grid x:Name="RootGrid" Padding="24" RowDefinitions="*,Auto,*">
+        <Border
+            x:Name="FormCard"
+            Grid.Row="1"
+            Padding="28"
+            WidthRequest="520"
+            BackgroundColor="Transparent"
+            StrokeThickness="0"
+            HorizontalOptions="Center">
+
+            <VerticalStackLayout Spacing="16">
+                <Label
+                    x:Name="TitleLabel"
+                    Text="Register Profile"
+                    FontSize="30"
+                    FontAttributes="Bold"
+                    TextColor="#14171A"
+                    WidthRequest="430"
+                    HorizontalTextAlignment="Center"
+                    HorizontalOptions="Center" />
+
+                <Entry
+                    x:Name="NameEntry"
+                    WidthRequest="430"
+                    HeightRequest="46"
+                    Placeholder="Full name"
+                    ReturnType="Next"
+                    Completed="NameEntry_Completed" />
+
+                <Entry
+                    x:Name="EmailEntry"
+                    WidthRequest="430"
+                    HeightRequest="46"
+                    Placeholder="Email"
+                    Keyboard="Email"
+                    ReturnType="Next"
+                    Completed="EmailEntry_Completed" />
+
+                <Grid WidthRequest="430">
+                    <Entry
+                        x:Name="PasswordEntry"
+                        WidthRequest="430"
+                        HeightRequest="46"
+                        Placeholder="Password"
+                        IsPassword="True"
+                        ReturnType="Next"
+                        Completed="PasswordEntry_Completed" />
+                    <Border
+                        x:Name="PasswordToggleButton"
+                        WidthRequest="62"
+                        HeightRequest="44"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"
+                        Padding="0"
+                        BackgroundColor="Transparent"
+                        StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8" />
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="PasswordToggleButton_Clicked" />
+                        </Border.GestureRecognizers>
+                        <Label
+                            x:Name="PasswordToggleLabel"
+                            Text="顯示"
+                            FontSize="14"
+                            FontAttributes="Bold"
+                            TextColor="#168A52"
+                            HorizontalTextAlignment="Center"
+                            VerticalTextAlignment="Center" />
+                    </Border>
+                </Grid>
+
+                <Grid WidthRequest="430">
+                    <Entry
+                        x:Name="ConfirmPasswordEntry"
+                        WidthRequest="430"
+                        HeightRequest="46"
+                        Placeholder="Confirm password"
+                        IsPassword="True"
+                        ReturnType="Done"
+                        Completed="ConfirmButton_Clicked" />
+                    <Border
+                        x:Name="ConfirmPasswordToggleButton"
+                        WidthRequest="62"
+                        HeightRequest="44"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"
+                        Padding="0"
+                        BackgroundColor="Transparent"
+                        StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8" />
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ConfirmPasswordToggleButton_Clicked" />
+                        </Border.GestureRecognizers>
+                        <Label
+                            x:Name="ConfirmPasswordToggleLabel"
+                            Text="顯示"
+                            FontSize="14"
+                            FontAttributes="Bold"
+                            TextColor="#168A52"
+                            HorizontalTextAlignment="Center"
+                            VerticalTextAlignment="Center" />
+                    </Border>
+                </Grid>
+
+                <Label x:Name="ValidationLabel" Text="" FontSize="13" TextColor="#C0392B" />
+
+                <Button
+                    x:Name="ConfirmButton"
+                    Text="Confirm"
+                    WidthRequest="430"
+                    HeightRequest="48"
+                    BackgroundColor="#1E8E5A"
+                    TextColor="White"
+                    CornerRadius="8"
+                    Clicked="ConfirmButton_Clicked" />
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

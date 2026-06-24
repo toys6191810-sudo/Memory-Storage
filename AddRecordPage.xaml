@@ -1,0 +1,82 @@
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Memory_Storage.AddRecordPage"
+    Shell.NavBarIsVisible="False"
+    x:Name="RootPage"
+    BackgroundColor="#F7F8FA">
+
+    <ScrollView x:Name="RootScroll">
+        <VerticalStackLayout x:Name="FormStack" Padding="22" Spacing="14">
+            <Label
+                x:Name="TitleLabel"
+                Text="Add Record"
+                FontSize="28"
+                FontAttributes="Bold"
+                TextColor="#14171A" />
+
+            <Label x:Name="TimeLabel" Text="Time" TextColor="#3C4653" />
+            <Grid ColumnDefinitions="110,90,90" ColumnSpacing="10" HorizontalOptions="Start">
+                <Picker x:Name="MeridiemPicker" Title="AM/PM">
+                    <Picker.Items>
+                        <x:String>AM</x:String>
+                        <x:String>PM</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Entry
+                    Grid.Column="1"
+                    x:Name="HourEntry"
+                    Keyboard="Numeric"
+                    MaxLength="2"
+                    Placeholder="Hour"
+                    ReturnType="Next"
+                    Completed="MoveToMinute_Completed" />
+                <Entry
+                    Grid.Column="2"
+                    x:Name="MinuteEntry"
+                    Keyboard="Numeric"
+                    MaxLength="2"
+                    Placeholder="Minute"
+                    ReturnType="Next"
+                    Completed="MoveToAppName_Completed" />
+            </Grid>
+
+            <Label x:Name="AppNameLabel" Text="App name" TextColor="#3C4653" />
+            <Entry
+                x:Name="AppNameEntry"
+                Placeholder="Example: Chrome, VS Code, YouTube"
+                ReturnType="Next"
+                Completed="MoveToProjectName_Completed" />
+
+            <Label x:Name="ProjectNameLabel" Text="Project name" TextColor="#3C4653" />
+            <Entry
+                x:Name="ProjectNameEntry"
+                Placeholder="Example: Java lesson, Memory Storage"
+                ReturnType="Next"
+                Completed="MoveToFileName_Completed" />
+
+            <Label x:Name="FileNameLabel" Text="File name" TextColor="#3C4653" />
+            <Entry
+                x:Name="FileNameEntry"
+                Placeholder="Example: MainPage.xaml, index.html"
+                ReturnType="Next"
+                Completed="MoveToNote_Completed" />
+
+            <Label x:Name="NoteLabel" Text="Note" TextColor="#3C4653" />
+            <Editor
+                x:Name="NoteEditor"
+                Placeholder="Example: Studied GridView or WHERE conditions"
+                HeightRequest="110" />
+
+            <Button
+                x:Name="SaveButton"
+                Text="Save"
+                HeightRequest="48"
+                BackgroundColor="#1E8E5A"
+                TextColor="White"
+                CornerRadius="8"
+                Clicked="SaveButton_Clicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
