@@ -14,9 +14,6 @@ namespace Memory_Storage
         {
             if (DeviceInfo.Idiom == DeviceIdiom.Phone)
             {
-#if ANDROID
-                AndroidHomeShortcutService.EnsureHomeShortcut();
-#endif
                 var mobileRoot = new NavigationPage(new MobileMainPage())
                 {
                     BarBackgroundColor = AppUi.PageBackground,
