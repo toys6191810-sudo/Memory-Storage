@@ -10,6 +10,7 @@ public partial class MobileActivityPage : ContentPage
     private string lastConfirmedSearchText = string.Empty;
     private bool isFeaturePanelExpanded = true;
     private bool isDeleteMode;
+    private bool hasShownUsageAccessPrompt;
     private IDispatcherTimer? durationRefreshTimer;
 
     public ObservableCollection<MemoryRecord> VisibleRecords { get; } = new();
@@ -50,6 +51,7 @@ public partial class MobileActivityPage : ContentPage
         LoadRecords(lastConfirmedSearchText);
         RefreshFeaturePanel(currentFeatureKey);
         StartDurationRefreshTimer();
+        _ = EnsureAndroidUsageAccessAsync();
     }
 
     protected override void OnDisappearing()
@@ -633,6 +635,46 @@ public partial class MobileActivityPage : ContentPage
             }
         };
         durationRefreshTimer.Start();
+    }
+
+    private async Task EnsureAndroidUsageAccessAsync()
+    {
+#if ANDROID
+        if (hasShownUsageAccessPrompt || AndroidUsageTracker.HasUsageAccess())
+        {
+            return;
+        }
+
+        hasShownUsageAccessPrompt = true;
+        var openSettings = await DisplayAlert(
+            AppUi.T("AppTitle"),
+            AndroidUsageAccessMessage(),
+            AppUi.T("Settings"),
+            AppUi.T("Cancel"));
+
+        if (openSettings)
+        {
+            AndroidUsageTracker.OpenUsageAccessSettings();
+        }
+#else
+        await Task.CompletedTask;
+#endif
+    }
+
+    private static string AndroidUsageAccessMessage()
+    {
+        return AppUi.CurrentLanguage switch
+        {
+            AppLanguage.SimplifiedChinese => "若要记录手机上开启过的应用程序，请在系统设置中允许 Memory Storage 使用「使用情况存取」。",
+            AppLanguage.TraditionalChinese => "若要記錄手機上開啟過的 App，請在系統設定中允許 Memory Storage 使用「使用情況存取」。",
+            AppLanguage.Japanese => "スマートフォンで開いたアプリを記録するには、システム設定で Memory Storage の使用状況へのアクセスを許可してください。",
+            AppLanguage.Korean => "휴대폰에서 연 앱을 기록하려면 시스템 설정에서 Memory Storage의 사용 정보 접근을 허용해 주세요.",
+            AppLanguage.German => "Um geoeffnete Apps auf dem Smartphone zu erfassen, erlaube Memory Storage in den Systemeinstellungen den Nutzungszugriff.",
+            AppLanguage.French => "Pour enregistrer les applications ouvertes sur le telephone, autorisez l'acces aux donnees d'utilisation pour Memory Storage dans les reglages systeme.",
+            AppLanguage.Italian => "Per registrare le app aperte sul telefono, consenti a Memory Storage l'accesso ai dati di utilizzo nelle impostazioni di sistema.",
+            AppLanguage.BritishEnglish => "To record apps opened on your mobile, allow Memory Storage usage access in system settings.",
+            _ => "To record apps opened on your phone, allow Memory Storage usage access in system settings."
+        };
     }
 
     private sealed record OperationEntry(DateTime HappenedAt, string AppName, string Operation);

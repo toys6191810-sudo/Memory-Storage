@@ -88,7 +88,11 @@ public static class ActivityTrackerService
             return (string.Empty, string.Empty);
         }
 #else
+#if ANDROID
+        return AndroidUsageTracker.GetForegroundSnapshot();
+#else
         return (string.Empty, string.Empty);
+#endif
 #endif
     }
 

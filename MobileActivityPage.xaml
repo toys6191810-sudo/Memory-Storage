@@ -9,13 +9,13 @@
 
     <Grid x:Name="RootGrid" RowDefinitions="Auto,*" BackgroundColor="#F7F8FA">
         <ScrollView Grid.Row="1">
-            <VerticalStackLayout Padding="16,18,16,28" Spacing="16">
+            <VerticalStackLayout Padding="16,12,16,24" Spacing="12">
                 <Grid ColumnDefinitions="Auto,*,Auto,Auto" ColumnSpacing="10">
                     <Button
                         x:Name="BackButton"
                         Text="Back"
-                        WidthRequest="84"
-                        HeightRequest="42"
+                        WidthRequest="74"
+                        HeightRequest="38"
                         Padding="10,0"
                         BackgroundColor="#1E8E5A"
                         TextColor="White"
@@ -60,13 +60,13 @@
                 </Grid>
 
                 <VerticalStackLayout Spacing="2">
-                    <Label x:Name="TitleLabel" Text="Memory Storage" FontSize="31" FontAttributes="Bold" TextColor="#14171A" />
+                    <Label x:Name="TitleLabel" Text="Memory Storage" FontSize="28" FontAttributes="Bold" TextColor="#14171A" />
                     <Label x:Name="TodayLabel" FontSize="14" TextColor="#5F6B7A" />
                 </VerticalStackLayout>
 
                 <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
-                    <Button x:Name="LoginButton" Text="Login" HeightRequest="44" BackgroundColor="#1E8E5A" TextColor="White" CornerRadius="12" Clicked="LoginButton_Clicked" />
-                    <Button x:Name="RegisterButton" Grid.Column="1" Text="Register" HeightRequest="44" BackgroundColor="#1E8E5A" TextColor="White" CornerRadius="12" Clicked="RegisterButton_Clicked" />
+                    <Button x:Name="LoginButton" Text="Login" HeightRequest="40" BackgroundColor="#1E8E5A" TextColor="White" CornerRadius="12" Clicked="LoginButton_Clicked" />
+                    <Button x:Name="RegisterButton" Grid.Column="1" Text="Register" HeightRequest="40" BackgroundColor="#1E8E5A" TextColor="White" CornerRadius="12" Clicked="RegisterButton_Clicked" />
                 </Grid>
 
                 <SearchBar
@@ -75,14 +75,16 @@
                     SearchButtonPressed="RecordSearchBar_SearchButtonPressed"
                     TextChanged="RecordSearchBar_TextChanged" />
 
-                <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
-                    <HorizontalStackLayout Spacing="10">
-                        <Button x:Name="OpenedProgramsButton" Text="Record opened programs" StyleId="UsedApps" HeightRequest="42" Padding="16,0" Clicked="FeatureButton_Clicked" BackgroundColor="#1E8E5A" TextColor="White" CornerRadius="14" />
-                        <Button x:Name="DurationButton" Text="Record activity duration" StyleId="Duration" HeightRequest="42" Padding="16,0" Clicked="FeatureButton_Clicked" BackgroundColor="#EAF5EF" TextColor="#0F7B4D" CornerRadius="14" />
-                        <Button x:Name="TimelineButton" Text="Timeline view" StyleId="Timeline" HeightRequest="42" Padding="16,0" Clicked="FeatureButton_Clicked" BackgroundColor="#EAF5EF" TextColor="#0F7B4D" CornerRadius="14" />
-                        <Button x:Name="SearchFeatureButton" Text="Search function records" StyleId="Search" HeightRequest="42" Padding="16,0" Clicked="FeatureButton_Clicked" BackgroundColor="#EAF5EF" TextColor="#0F7B4D" CornerRadius="14" />
-                    </HorizontalStackLayout>
-                </ScrollView>
+                <Grid
+                    RowDefinitions="Auto,Auto"
+                    ColumnDefinitions="*,*"
+                    RowSpacing="10"
+                    ColumnSpacing="10">
+                    <Button x:Name="OpenedProgramsButton" Text="Record opened programs" StyleId="UsedApps" HeightRequest="46" Padding="8,0" FontSize="12" LineBreakMode="WordWrap" Clicked="FeatureButton_Clicked" BackgroundColor="#1E8E5A" TextColor="White" CornerRadius="14" />
+                    <Button x:Name="DurationButton" Grid.Column="1" Text="Record activity duration" StyleId="Duration" HeightRequest="46" Padding="8,0" FontSize="12" LineBreakMode="WordWrap" Clicked="FeatureButton_Clicked" BackgroundColor="#EAF5EF" TextColor="#0F7B4D" CornerRadius="14" />
+                    <Button x:Name="TimelineButton" Grid.Row="1" Text="Timeline view" StyleId="Timeline" HeightRequest="46" Padding="8,0" FontSize="12" LineBreakMode="WordWrap" Clicked="FeatureButton_Clicked" BackgroundColor="#EAF5EF" TextColor="#0F7B4D" CornerRadius="14" />
+                    <Button x:Name="SearchFeatureButton" Grid.Row="1" Grid.Column="1" Text="Search function records" StyleId="Search" HeightRequest="46" Padding="8,0" FontSize="12" LineBreakMode="WordWrap" Clicked="FeatureButton_Clicked" BackgroundColor="#EAF5EF" TextColor="#0F7B4D" CornerRadius="14" />
+                </Grid>
 
                 <Border
                     x:Name="FeaturePanel"
@@ -114,7 +116,7 @@
                             x:Name="FeatureContentScroll"
                             Grid.Row="1"
                             Padding="14,0,14,14"
-                            MaximumHeightRequest="190"
+                        MaximumHeightRequest="230"
                             Orientation="Vertical">
                             <Label x:Name="FeatureContentLabel" FontSize="13" TextColor="#3C4653" />
                         </ScrollView>
@@ -123,7 +125,7 @@
 
                 <Border
                     x:Name="RecordingToggleCard"
-                    Padding="16,14"
+                    Padding="14,12"
                     BackgroundColor="#111816"
                     Stroke="#263A33"
                     StrokeThickness="1.5">
@@ -133,14 +135,14 @@
                     <Border.Shadow>
                         <Shadow Brush="#66000000" Offset="0,8" Radius="18" Opacity="0.28" />
                     </Border.Shadow>
-                    <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="9" HorizontalOptions="Center">
+                    <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="6" HorizontalOptions="Center">
                         <Label x:Name="RecordingToggleLabel" FontSize="15" FontAttributes="Bold" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
                         <Label x:Name="RecordingToggleStateLabel" Grid.Row="1" Text="Recording ON" FontSize="11" FontAttributes="Bold" TextColor="#6FE0A5" HorizontalOptions="Center" />
                         <Border
                             x:Name="RecordingToggleButton"
                             Grid.Row="2"
-                            WidthRequest="78"
-                            HeightRequest="36"
+                            WidthRequest="66"
+                            HeightRequest="30"
                             BackgroundColor="#20C978"
                             StrokeThickness="0"
                             HorizontalOptions="Center">
@@ -153,8 +155,8 @@
                             <Grid Padding="4">
                                 <Border
                                     x:Name="RecordingToggleThumb"
-                                    WidthRequest="28"
-                                    HeightRequest="28"
+                                    WidthRequest="22"
+                                    HeightRequest="22"
                                     BackgroundColor="White"
                                     HorizontalOptions="Start"
                                     VerticalOptions="Center"
@@ -206,7 +208,7 @@
                     SelectionMode="Single"
                     SelectionChanged="RecordCollectionView_SelectionChanged">
                     <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="12" VerticalItemSpacing="12" />
+                        <GridItemsLayout Orientation="Vertical" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="14" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.EmptyView>
                         <VerticalStackLayout Padding="20" Spacing="7" HorizontalOptions="Center">
@@ -216,11 +218,11 @@
                     </CollectionView.EmptyView>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Border HeightRequest="214" Padding="10" BackgroundColor="White" Stroke="#D9E1E8" StrokeThickness="1">
+                            <Border HeightRequest="278" Padding="14" BackgroundColor="White" Stroke="#D9E1E8" StrokeThickness="1" MaximumWidthRequest="360" HorizontalOptions="Center">
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="12" />
                                 </Border.StrokeShape>
-                                <Grid RowDefinitions="Auto,104,Auto" RowSpacing="8">
+                                <Grid RowDefinitions="Auto,150,Auto" RowSpacing="10">
                                     <Grid ColumnDefinitions="*,Auto">
                                         <Border Padding="7,5" BackgroundColor="#26343B" StrokeThickness="0">
                                             <Border.StrokeShape>
@@ -237,28 +239,28 @@
                                     </Grid>
 
                                     <Grid Grid.Row="1">
-                                        <Border WidthRequest="92" HeightRequest="98" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#F9FAFB" Stroke="#333740" StrokeThickness="4">
+                                        <Border WidthRequest="126" HeightRequest="136" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#F9FAFB" Stroke="#333740" StrokeThickness="4">
                                             <Border.StrokeShape>
                                                 <RoundRectangle CornerRadius="7" />
                                             </Border.StrokeShape>
                                             <Grid Padding="12" RowDefinitions="*,*,*" RowSpacing="6">
-                                                <BoxView HeightRequest="6" WidthRequest="48" Color="#333740" HorizontalOptions="Center" VerticalOptions="Center" />
-                                                <BoxView Grid.Row="1" HeightRequest="6" WidthRequest="48" Color="#333740" HorizontalOptions="Center" VerticalOptions="Center" />
-                                                <BoxView Grid.Row="2" HeightRequest="6" WidthRequest="48" Color="#333740" HorizontalOptions="Center" VerticalOptions="Center" />
+                                                <BoxView HeightRequest="7" WidthRequest="68" Color="#333740" HorizontalOptions="Center" VerticalOptions="Center" />
+                                                <BoxView Grid.Row="1" HeightRequest="7" WidthRequest="68" Color="#333740" HorizontalOptions="Center" VerticalOptions="Center" />
+                                                <BoxView Grid.Row="2" HeightRequest="7" WidthRequest="68" Color="#333740" HorizontalOptions="Center" VerticalOptions="Center" />
                                             </Grid>
                                         </Border>
-                                        <Border WidthRequest="62" HeightRequest="68" Margin="78,34,0,0" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White" Stroke="#333740" StrokeThickness="4">
+                                        <Border WidthRequest="84" HeightRequest="92" Margin="104,44,0,0" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White" Stroke="#333740" StrokeThickness="4">
                                             <Border.StrokeShape>
                                                 <RoundRectangle CornerRadius="4" />
                                             </Border.StrokeShape>
                                             <Grid RowDefinitions="16,*" Padding="8">
-                                                <BoxView HeightRequest="4" WidthRequest="22" Color="#333740" HorizontalOptions="Start" VerticalOptions="Center" />
-                                                <BoxView Grid.Row="1" WidthRequest="4" HeightRequest="28" Color="#333740" HorizontalOptions="Start" VerticalOptions="Center" />
+                                                <BoxView HeightRequest="5" WidthRequest="34" Color="#333740" HorizontalOptions="Start" VerticalOptions="Center" />
+                                                <BoxView Grid.Row="1" WidthRequest="5" HeightRequest="42" Color="#333740" HorizontalOptions="Start" VerticalOptions="Center" />
                                             </Grid>
                                         </Border>
                                     </Grid>
 
-                                    <Label Grid.Row="2" Text="{Binding FileTitle}" FontSize="13" FontAttributes="Bold" TextColor="#14171A" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation" />
+                                    <Label Grid.Row="2" Text="{Binding FileTitle}" FontSize="15" FontAttributes="Bold" TextColor="#14171A" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation" />
 
                                     <Border
                                         WidthRequest="22"
@@ -292,10 +294,10 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
-                <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <VerticalStackLayout Spacing="10">
                     <Button x:Name="AppUserGuideButton" Text="App User Guide" HeightRequest="46" BackgroundColor="#C9362B" TextColor="White" FontAttributes="Bold" CornerRadius="12" Clicked="AppUserGuideButton_Clicked" />
-                    <Button x:Name="PrivacyStatementButton" Grid.Column="1" Text="Privacy Statement" HeightRequest="46" BackgroundColor="#C9362B" TextColor="White" FontAttributes="Bold" CornerRadius="12" Clicked="PrivacyStatementButton_Clicked" />
-                </Grid>
+                    <Button x:Name="PrivacyStatementButton" Text="Privacy Statement" HeightRequest="46" BackgroundColor="#C9362B" TextColor="White" FontAttributes="Bold" CornerRadius="12" Clicked="PrivacyStatementButton_Clicked" />
+                </VerticalStackLayout>
             </VerticalStackLayout>
         </ScrollView>
     </Grid>
