@@ -1,0 +1,99 @@
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Memory_Storage"
+    x:Class="Memory_Storage.MobileMainPage"
+    NavigationPage.HasNavigationBar="False"
+    x:Name="RootPage"
+    BackgroundColor="#EAF7EF">
+
+    <Grid x:Name="RootGrid" Padding="22,34,22,26" RowDefinitions="*,Auto,*">
+        <local:GeometryBackgroundView
+            x:Name="GeometryBackground"
+            Grid.RowSpan="3"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill" />
+
+        <VerticalStackLayout
+            Grid.Row="1"
+            Spacing="18"
+            HorizontalOptions="Fill">
+
+            <Border
+                x:Name="EyebrowPill"
+                Padding="13,7"
+                HorizontalOptions="Center"
+                BackgroundColor="#DDF3E8"
+                StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+                <Label
+                    x:Name="EyebrowLabel"
+                    Text="Today memory workspace"
+                    FontSize="12"
+                    FontAttributes="Bold"
+                    TextColor="#0F7B4D"
+                    HorizontalTextAlignment="Center" />
+            </Border>
+
+            <Label
+                x:Name="TitleLabel"
+                Text="Memory Storage"
+                FontSize="38"
+                FontAttributes="Bold"
+                TextColor="#14171A"
+                HorizontalTextAlignment="Center" />
+
+            <Label
+                x:Name="TaglineLabel"
+                Text="Organize every app, project, file, and study activity you open today."
+                FontSize="15"
+                LineHeight="1.32"
+                TextColor="#3C4653"
+                HorizontalTextAlignment="Center" />
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Margin="0,8,0,0">
+                <Border Padding="12,10" BackgroundColor="White" Stroke="#DCE7E1" StrokeThickness="1">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout Spacing="8">
+                        <Border WidthRequest="28" HeightRequest="28" BackgroundColor="#E2F5EC" StrokeThickness="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="14" />
+                            </Border.StrokeShape>
+                            <Label Text="✓" TextColor="#0F7B4D" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                        </Border>
+                        <Label x:Name="OpenedHintLabel" Text="Records" FontSize="12" FontAttributes="Bold" TextColor="#14171A" VerticalTextAlignment="Center" />
+                    </HorizontalStackLayout>
+                </Border>
+
+                <Border Grid.Column="1" Padding="12,10" BackgroundColor="White" Stroke="#DCE7E1" StrokeThickness="1">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout Spacing="8">
+                        <Border WidthRequest="28" HeightRequest="28" BackgroundColor="#FFF0E6" StrokeThickness="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="14" />
+                            </Border.StrokeShape>
+                            <Label Text="•" TextColor="#F97316" FontSize="20" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                        </Border>
+                        <Label x:Name="TimelineHintLabel" Text="Timeline" FontSize="12" FontAttributes="Bold" TextColor="#14171A" VerticalTextAlignment="Center" />
+                    </HorizontalStackLayout>
+                </Border>
+            </Grid>
+
+            <Button
+                x:Name="StartButton"
+                Text="Start"
+                HeightRequest="56"
+                BackgroundColor="#1E8E5A"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="14"
+                Clicked="StartButton_Clicked" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

@@ -12,6 +12,22 @@ namespace Memory_Storage
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
+            if (DeviceInfo.Idiom == DeviceIdiom.Phone)
+            {
+                var mobileRoot = new NavigationPage(new MobileMainPage())
+                {
+                    BarBackgroundColor = AppUi.PageBackground,
+                    BarTextColor = AppUi.Text
+                };
+
+                NavigationPage.SetHasNavigationBar(mobileRoot.CurrentPage, false);
+
+                return new Window(mobileRoot)
+                {
+                    Title = AppUi.T("AppTitle")
+                };
+            }
+
             return new Window(new AppShell())
             {
                 Title = AppUi.T("AppTitle")
