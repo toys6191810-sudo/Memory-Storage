@@ -24,25 +24,31 @@ public static class AndroidHomeShortcutService
             return;
         }
 
-        if (shortcutManager.PinnedShortcuts.Any(shortcut => shortcut.Id == "memory-storage-home"))
+        var shortcut = BuildShortcut(context);
+
+        hasRequestedThisSession = true;
+
+        if (shortcutManager.PinnedShortcuts.Any(pinnedShortcut => pinnedShortcut.Id == shortcut.Id))
         {
-            hasRequestedThisSession = true;
+            shortcutManager.UpdateShortcuts(new[] { shortcut });
             return;
         }
 
+        shortcutManager.RequestPinShortcut(shortcut, null);
+    }
+
+    private static ShortcutInfo BuildShortcut(Context context)
+    {
         var launchIntent = new Intent(context, typeof(MainActivity));
         launchIntent.SetAction(Intent.ActionMain);
         launchIntent.AddCategory(Intent.CategoryLauncher);
         launchIntent.SetFlags(ActivityFlags.NewTask | ActivityFlags.ClearTask);
 
-        var shortcut = new ShortcutInfo.Builder(context, "memory-storage-home")
+        return new ShortcutInfo.Builder(context, "memory-storage-home")
             .SetShortLabel("Memory Storage")
             .SetLongLabel("Memory Storage")
-            .SetIcon(Icon.CreateWithResource(context, Resource.Mipmap.memory_storage_appicon))
+            .SetIcon(Icon.CreateWithResource(context, Resource.Drawable.memory_storage_shortcut_icon))
             .SetIntent(launchIntent)
             .Build();
-
-        hasRequestedThisSession = true;
-        shortcutManager.RequestPinShortcut(shortcut, null);
     }
 }
