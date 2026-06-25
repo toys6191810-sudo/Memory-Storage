@@ -50,8 +50,8 @@ public partial class MobileMainPage : ContentPage
         TitleLabel.TextColor = AppUi.Text;
         TaglineLabel.Text = AppUi.T("Tagline");
         TaglineLabel.TextColor = AppUi.MutedText;
-        OpenedHintLabel.Text = AppUi.T("RecordOpenedPrograms");
-        TimelineHintLabel.Text = AppUi.T("TimelineView");
+        OpenedHintLabel.Text = ShortOpenedProgramsLabel();
+        TimelineHintLabel.Text = ShortTimelineLabel();
         StartButton.Text = AppUi.T("Start");
         GeometryBackground.Invalidate();
 
@@ -61,8 +61,47 @@ public partial class MobileMainPage : ContentPage
         }
     }
 
+    private static string ShortOpenedProgramsLabel()
+    {
+        return AppUi.CurrentLanguage switch
+        {
+            AppLanguage.SimplifiedChinese => "开启记录",
+            AppLanguage.TraditionalChinese => "開啟記錄",
+            AppLanguage.Japanese => "起動記録",
+            AppLanguage.Korean => "열림 기록",
+            AppLanguage.German => "Startprotokoll",
+            AppLanguage.French => "Ouvertures",
+            AppLanguage.Italian => "Aperture",
+            AppLanguage.BritishEnglish => "Open records",
+            _ => "Records"
+        };
+    }
+
+    private static string ShortTimelineLabel()
+    {
+        return AppUi.CurrentLanguage switch
+        {
+            AppLanguage.SimplifiedChinese => "时间线",
+            AppLanguage.TraditionalChinese => "時間軸",
+            AppLanguage.Japanese => "時系列",
+            AppLanguage.Korean => "타임라인",
+            AppLanguage.German => "Zeitleiste",
+            AppLanguage.French => "Chronologie",
+            AppLanguage.Italian => "Sequenza",
+            AppLanguage.BritishEnglish => "Timeline",
+            _ => "Timeline"
+        };
+    }
+
     private void StartGeometryAnimation()
     {
+        if (DeviceInfo.Platform == DevicePlatform.Android)
+        {
+            GeometryBackground.AnimationProgress = 0.65;
+            GeometryBackground.Invalidate();
+            return;
+        }
+
         if (geometryTimer is not null)
         {
             geometryTimer.Start();
