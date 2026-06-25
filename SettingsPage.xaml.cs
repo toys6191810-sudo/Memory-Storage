@@ -62,6 +62,9 @@ public partial class SettingsPage : ContentPage
 
     private void ApplyUi()
     {
+        SetValue(NavigationPage.BarBackgroundColorProperty, AppUi.IsDarkMode ? Color.FromArgb("#F7F8FA") : Color.FromArgb("#EAF7EF"));
+        SetValue(NavigationPage.BarTextColorProperty, AppUi.IsDarkMode ? Color.FromArgb("#111816") : Color.FromArgb("#14171A"));
+
         BackgroundColor = AppUi.PageBackground;
         RootGrid.BackgroundColor = AppUi.PageBackground;
         SettingsCard.BackgroundColor = AppUi.Surface;
