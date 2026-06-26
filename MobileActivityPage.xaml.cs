@@ -11,6 +11,7 @@ public partial class MobileActivityPage : ContentPage
     private bool isFeaturePanelExpanded = true;
     private bool isDeleteMode;
     private bool hasShownUsageAccessPrompt;
+    private bool hasShownAccessibilityAccessPrompt;
     private IDispatcherTimer? durationRefreshTimer;
 
     public ObservableCollection<MemoryRecord> VisibleRecords { get; } = new();
@@ -52,6 +53,7 @@ public partial class MobileActivityPage : ContentPage
         RefreshFeaturePanel(currentFeatureKey);
         StartDurationRefreshTimer();
         _ = EnsureAndroidUsageAccessAsync();
+        _ = EnsureAndroidAccessibilityAccessAsync();
     }
 
     protected override void OnDisappearing()
@@ -655,6 +657,30 @@ public partial class MobileActivityPage : ContentPage
         if (openSettings)
         {
             AndroidUsageTracker.OpenUsageAccessSettings();
+        }
+#else
+        await Task.CompletedTask;
+#endif
+    }
+
+    private async Task EnsureAndroidAccessibilityAccessAsync()
+    {
+#if ANDROID
+        if (hasShownAccessibilityAccessPrompt || AndroidUsageTracker.HasAccessibilityAccess())
+        {
+            return;
+        }
+
+        hasShownAccessibilityAccessPrompt = true;
+        var openSettings = await DisplayAlert(
+            AppUi.T("MobileInteractionAccessTitle"),
+            AppUi.T("MobileInteractionAccessMessage"),
+            AppUi.T("Settings"),
+            AppUi.T("Cancel"));
+
+        if (openSettings)
+        {
+            AndroidUsageTracker.OpenAccessibilitySettings();
         }
 #else
         await Task.CompletedTask;

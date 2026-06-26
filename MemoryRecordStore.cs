@@ -161,6 +161,33 @@ public static class MemoryRecordStore
         NotifyRecordsChanged();
     }
 
+    public static void AddMobileInteraction(DateTime happenedAt, string appName, string actionLabel, string itemName)
+    {
+        if (!IsRecordingEnabled || string.IsNullOrWhiteSpace(appName))
+        {
+            return;
+        }
+
+        MergeDuplicateAppRecords(appName);
+        var cleanItem = CleanMobileItemName(itemName, appName);
+        var record = GetOrCreateAppRecord(happenedAt, appName, "Mobile app", cleanItem);
+
+        if (!string.IsNullOrWhiteSpace(cleanItem))
+        {
+            record.FileName = cleanItem;
+        }
+
+        var operationParts = new List<string> { $"{actionLabel} : {appName}" };
+
+        if (!string.IsNullOrWhiteSpace(cleanItem))
+        {
+            operationParts.Add($"{AppUi.RecordFileItemLabel} : {cleanItem}");
+        }
+
+        record.AppendOperation(happenedAt, string.Join(" ??", operationParts));
+        NotifyRecordsChanged();
+    }
+
     private static void MergeDuplicateAppRecords(string appName)
     {
         var identity = NormalizeAppIdentity(appName);
@@ -402,6 +429,24 @@ public static class MemoryRecordStore
         }
 
         return value;
+    }
+
+    private static string CleanMobileItemName(string itemName, string appName)
+    {
+        if (string.IsNullOrWhiteSpace(itemName))
+        {
+            return string.Empty;
+        }
+
+        var value = Regex.Replace(itemName.Trim(), @"\s+", " ");
+
+        if (value.Equals(appName, StringComparison.OrdinalIgnoreCase)
+            || value.Equals(AppUi.DisplayAppName(appName), StringComparison.OrdinalIgnoreCase))
+        {
+            return string.Empty;
+        }
+
+        return value.Length > 80 ? value[..80] : value;
     }
 
     private static bool IsAppNamePart(string part, string appName)

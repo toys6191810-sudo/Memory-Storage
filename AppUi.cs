@@ -110,6 +110,10 @@ public static class AppUi
         ["ConfirmClearAll"] = ["确定要清除全部文件柜与内部记录吗？", "確定要清除全部文件檔案櫃與內部紀錄嗎？", "すべてのファイルキャビネットと内部記録を削除しますか？", "모든 파일 캐비닛과 내부 기록을 지울까요?", "Alle Aktenschranke und enthaltenen Aufzeichnungen loschen?", "Effacer tous les classeurs et leurs enregistrements ?", "Cancellare tutti gli schedari e i record interni?", "Clear all file cabinets and their internal records?", "Clear every file cabinet and all records inside them?"],
         ["Cancel"] = ["取消", "取消", "キャンセル", "취소", "Abbrechen", "Annuler", "Annulla", "Cancel", "Cancel action"],
         ["Clear"] = ["清除", "清除", "削除", "지우기", "Loschen", "Effacer", "Cancella", "Clear", "Clear"],
+        ["Tapped"] = ["点选", "點選", "タップ", "탭함", "Angetippt", "Touche", "Toccato", "Tapped", "Tapped"],
+        ["Screen"] = ["画面", "畫面", "画面", "화면", "Bildschirm", "Ecran", "Schermata", "Screen", "Screen"],
+        ["MobileInteractionAccessTitle"] = ["开启手机操作记录", "開啟手機操作紀錄", "スマホ操作記録を有効化", "휴대폰 조작 기록 켜기", "Smartphone-Aktionen erfassen", "Activer le suivi mobile", "Attiva registrazione mobile", "Enable phone activity records", "Enable mobile activity records"],
+        ["MobileInteractionAccessMessage"] = ["若要记录手机上其他 App 的画面切换与点选项目，请在系统无障碍设定中开启 Memory Storage 服务。Android 需要使用者手动开启此权限。", "若要記錄手機上其他 App 的畫面切換與點選項目，請在系統無障礙設定中開啟 Memory Storage 服務。Android 需要使用者手動開啟此權限。", "他のアプリの画面切り替えやタップ項目を記録するには、システムのユーザー補助設定で Memory Storage サービスを有効にしてください。Android ではユーザーが手動で許可する必要があります。", "다른 앱의 화면 전환과 탭한 항목을 기록하려면 시스템 접근성 설정에서 Memory Storage 서비스를 켜세요. Android에서는 사용자가 직접 이 권한을 켜야 합니다.", "Um Bildschirmwechsel und angetippte Elemente anderer Apps zu erfassen, aktivieren Sie den Memory-Storage-Dienst in den Android-Bedienungshilfen. Android verlangt, dass der Benutzer diese Berechtigung manuell aktiviert.", "Pour enregistrer les changements d'ecran et les elements touches dans les autres apps, activez le service Memory Storage dans les reglages d'accessibilite Android. Android exige une activation manuelle.", "Per registrare schermate e tocchi nelle altre app, attiva il servizio Memory Storage nelle impostazioni di accessibilita di Android. Android richiede l'attivazione manuale.", "To record screen changes and tapped items inside other phone apps, enable the Memory Storage service in Android Accessibility settings. Android requires the user to turn this permission on manually.", "To record screen changes and tapped items inside other mobile apps, enable the Memory Storage service in Android Accessibility settings. Android requires the user to turn this permission on manually."],
     };
 
     public static readonly string[] LanguageNames =
@@ -217,6 +221,16 @@ public static class AppUi
         if (normalized is "opened" or "open" or "開啟" or "打开" or "geoffnet" or "ouvert" or "aperto" or "열림" or "열린" or "開いた")
         {
             return T("Opened");
+        }
+
+        if (normalized is "tapped" or "tap" or "clicked" or "click" or "點選" or "点选" or "탭함" or "タップ")
+        {
+            return T("Tapped");
+        }
+
+        if (normalized is "screen" or "window" or "畫面" or "画面" or "화면" or "bildschirm" or "ecran" or "schermata")
+        {
+            return T("Screen");
         }
 
         if (normalized is "fileitem" or "檔案項目" or "文件项目" or "dateielement" or "elementdefichier" or "elementofile" or "파일항목" or "ファイル項目")

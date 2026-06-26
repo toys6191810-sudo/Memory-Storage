@@ -39,6 +39,35 @@ public static class AndroidUsageTracker
         activity.StartActivity(intent);
     }
 
+    public static bool HasAccessibilityAccess()
+    {
+        var context = Platform.AppContext;
+        var enabledServices = Settings.Secure.GetString(context.ContentResolver, Settings.Secure.EnabledAccessibilityServices);
+
+        if (string.IsNullOrWhiteSpace(enabledServices))
+        {
+            return false;
+        }
+
+        return enabledServices
+            .Split(':', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .Any(service => service.Contains(context.PackageName!, StringComparison.OrdinalIgnoreCase)
+                && service.Contains(nameof(MemoryStorageAccessibilityService), StringComparison.OrdinalIgnoreCase));
+    }
+
+    public static void OpenAccessibilitySettings()
+    {
+        var activity = Platform.CurrentActivity;
+        if (activity is null)
+        {
+            return;
+        }
+
+        var intent = new Intent(Settings.ActionAccessibilitySettings);
+        intent.AddFlags(ActivityFlags.NewTask);
+        activity.StartActivity(intent);
+    }
+
     public static (string AppName, string WindowTitle) GetForegroundSnapshot()
     {
         if (!HasUsageAccess())
@@ -87,7 +116,7 @@ public static class AndroidUsageTracker
         return (GetApplicationLabel(latestPackageName), "Mobile app foreground");
     }
 
-    private static string GetApplicationLabel(string packageName)
+    public static string GetApplicationLabel(string packageName)
     {
         var context = Platform.AppContext;
         var packageManager = context.PackageManager;
