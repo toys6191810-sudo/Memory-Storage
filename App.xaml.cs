@@ -7,6 +7,8 @@ namespace Memory_Storage
         public App()
         {
             InitializeComponent();
+            UserProfileStore.InitializeSession();
+            MemoryRecordStore.InitializeForAppLaunch();
             UserAppTheme = AppUi.IsDarkMode ? AppTheme.Dark : AppTheme.Light;
         }
 

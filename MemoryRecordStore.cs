@@ -44,11 +44,21 @@ public static class MemoryRecordStore
     public static IReadOnlyList<MemoryRecord> GetRecords(string keyword = "")
     {
         return Records
-            .Where(record => record.StartedAt.Date == DateTime.Today)
             .Where(record => UserProfileStore.IsLoggedIn || record.StartedAt >= SessionStartedAt)
             .Where(record => record.Contains(keyword))
             .OrderBy(record => record.StartedAt)
             .ToList();
+    }
+
+    public static void InitializeForAppLaunch()
+    {
+        if (UserProfileStore.IsLoggedIn)
+        {
+            RestoreForCurrentUser();
+            return;
+        }
+
+        StartGuestSession();
     }
 
     public static void Add(MemoryRecord record)
@@ -531,7 +541,6 @@ public static class MemoryRecordStore
 
             var records = JsonSerializer.Deserialize<List<MemoryRecord>>(File.ReadAllText(path));
             return records?
-                .Where(record => record.StartedAt.Date == DateTime.Today)
                 .OrderBy(record => record.StartedAt)
                 .ToList() ?? new List<MemoryRecord>();
         }
@@ -551,7 +560,6 @@ public static class MemoryRecordStore
 
         Directory.CreateDirectory(RecordsDirectory);
         var records = Records
-            .Where(record => record.StartedAt.Date == DateTime.Today)
             .OrderBy(record => record.StartedAt)
             .ToList();
         var json = JsonSerializer.Serialize(records, new JsonSerializerOptions { WriteIndented = true });

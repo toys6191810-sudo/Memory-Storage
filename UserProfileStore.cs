@@ -6,9 +6,15 @@ public static class UserProfileStore
 
     private static readonly string StoreDirectory = Path.Combine(FileSystem.AppDataDirectory, "profiles");
     private static readonly string AccountsFilePath = Path.Combine(StoreDirectory, "accounts.json");
+    private static readonly string SessionFilePath = Path.Combine(StoreDirectory, "active-session.txt");
     private static readonly Dictionary<string, UserProfileData> Accounts = LoadAccounts();
     private static string avatarPath = string.Empty;
     private static bool isLoggedIn;
+
+    static UserProfileStore()
+    {
+        RestoreLoginSession();
+    }
 
     public static string Name { get; set; } = string.Empty;
 
@@ -35,6 +41,11 @@ public static class UserProfileStore
             isLoggedIn = value;
             Changed?.Invoke(null, EventArgs.Empty);
         }
+    }
+
+    public static void InitializeSession()
+    {
+        // Triggers the static constructor before app launch data is restored.
     }
 
     public static void NotifyChanged()
@@ -80,7 +91,9 @@ public static class UserProfileStore
         Email = account.Email;
         Password = account.Password;
         avatarPath = account.AvatarPath;
-        IsLoggedIn = true;
+        isLoggedIn = true;
+        SaveLoginSession();
+        Changed?.Invoke(null, EventArgs.Empty);
         return true;
     }
 
@@ -88,8 +101,67 @@ public static class UserProfileStore
     {
         SaveCurrentProfile();
         MemoryRecordStore.SaveForCurrentUser();
-        IsLoggedIn = false;
+        DeleteLoginSession();
+        isLoggedIn = false;
+        Name = string.Empty;
+        Email = string.Empty;
+        Password = string.Empty;
+        avatarPath = string.Empty;
+        Changed?.Invoke(null, EventArgs.Empty);
         MemoryRecordStore.StartGuestSession();
+    }
+
+    private static void RestoreLoginSession()
+    {
+        try
+        {
+            if (!File.Exists(SessionFilePath))
+            {
+                return;
+            }
+
+            var key = NormalizeEmail(File.ReadAllText(SessionFilePath));
+            if (!Accounts.TryGetValue(key, out var account))
+            {
+                DeleteLoginSession();
+                return;
+            }
+
+            Name = account.Name;
+            Email = account.Email;
+            Password = account.Password;
+            avatarPath = account.AvatarPath;
+            isLoggedIn = true;
+        }
+        catch
+        {
+            isLoggedIn = false;
+        }
+    }
+
+    private static void SaveLoginSession()
+    {
+        if (string.IsNullOrWhiteSpace(Email))
+        {
+            return;
+        }
+
+        Directory.CreateDirectory(StoreDirectory);
+        File.WriteAllText(SessionFilePath, NormalizeEmail(Email));
+    }
+
+    private static void DeleteLoginSession()
+    {
+        try
+        {
+            if (File.Exists(SessionFilePath))
+            {
+                File.Delete(SessionFilePath);
+            }
+        }
+        catch
+        {
+        }
     }
 
     private static void SaveCurrentProfile()
