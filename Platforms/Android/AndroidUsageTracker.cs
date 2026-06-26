@@ -9,6 +9,35 @@ namespace Memory_Storage;
 
 public static class AndroidUsageTracker
 {
+    private static readonly Dictionary<string, string> KnownPackageLabels = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ["com.google.android.youtube"] = "YouTube",
+        ["com.google.android.apps.youtube.music"] = "YT Music",
+        ["com.google.android.apps.photos"] = "Photos",
+        ["com.android.vending"] = "Play Store",
+        ["com.android.chrome"] = "Chrome",
+        ["com.google.android.apps.messaging"] = "Messages",
+        ["com.google.android.gm"] = "Gmail",
+        ["com.google.android.apps.maps"] = "Maps",
+        ["com.google.android.apps.docs"] = "Drive",
+        ["com.google.android.calendar"] = "Calendar",
+        ["com.google.android.contacts"] = "Contacts",
+        ["com.google.android.apps.nbu.files"] = "Files",
+        ["com.google.android.dialer"] = "Phone",
+        ["com.google.android.apps.safetycenter"] = "Safety",
+        ["com.google.android.googlequicksearchbox"] = "Google",
+        ["com.google.android.apps.camera"] = "Camera",
+        ["com.google.android.deskclock"] = "Clock"
+    };
+
+    private static readonly string[] LauncherOrShellPackageNames =
+    [
+        "com.google.android.apps.nexuslauncher",
+        "com.android.launcher",
+        "com.android.launcher3",
+        "com.android.systemui"
+    ];
+
     public static bool HasUsageAccess()
     {
         var context = Platform.AppContext;
@@ -99,6 +128,11 @@ public static class AndroidUsageTracker
                 continue;
             }
 
+            if (!IsTrackableApplicationPackage(usageEvent.PackageName))
+            {
+                continue;
+            }
+
             if (usageEvent.TimeStamp < latestTime)
             {
                 continue;
@@ -116,8 +150,29 @@ public static class AndroidUsageTracker
         return (GetApplicationLabel(latestPackageName), "Mobile app foreground");
     }
 
+    public static bool IsTrackableApplicationPackage(string? packageName)
+    {
+        if (string.IsNullOrWhiteSpace(packageName))
+        {
+            return false;
+        }
+
+        var context = Platform.AppContext;
+        if (packageName.Equals(context.PackageName, StringComparison.OrdinalIgnoreCase))
+        {
+            return false;
+        }
+
+        return !LauncherOrShellPackageNames.Any(packageName.Equals);
+    }
+
     public static string GetApplicationLabel(string packageName)
     {
+        if (KnownPackageLabels.TryGetValue(packageName, out var knownName))
+        {
+            return knownName;
+        }
+
         var context = Platform.AppContext;
         var packageManager = context.PackageManager;
 
@@ -129,12 +184,43 @@ public static class AndroidUsageTracker
         try
         {
             var applicationInfo = packageManager.GetApplicationInfo(packageName, 0);
-            return packageManager.GetApplicationLabel(applicationInfo)?.ToString() ?? packageName;
+            var label = packageManager.GetApplicationLabel(applicationInfo)?.ToString();
+            if (!string.IsNullOrWhiteSpace(label) && !label.Equals(packageName, StringComparison.OrdinalIgnoreCase))
+            {
+                return label.Trim();
+            }
+
+            var launchIntent = packageManager.GetLaunchIntentForPackage(packageName);
+            if (launchIntent is not null)
+            {
+                var resolveInfo = packageManager.ResolveActivity(launchIntent, 0);
+                var activityLabel = resolveInfo?.LoadLabel(packageManager)?.ToString();
+                if (!string.IsNullOrWhiteSpace(activityLabel) && !activityLabel.Equals(packageName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return activityLabel.Trim();
+                }
+            }
+
+            return FormatPackageNameFallback(packageName);
         }
         catch
         {
-            return packageName;
+            return FormatPackageNameFallback(packageName);
         }
+    }
+
+    private static string FormatPackageNameFallback(string packageName)
+    {
+        if (KnownPackageLabels.TryGetValue(packageName, out var knownName))
+        {
+            return knownName;
+        }
+
+        var lastSegment = packageName.Split('.', StringSplitOptions.RemoveEmptyEntries).LastOrDefault() ?? packageName;
+        return string.IsNullOrWhiteSpace(lastSegment)
+            ? packageName
+            : string.Join(" ", lastSegment.Split(['_', '-'], StringSplitOptions.RemoveEmptyEntries)
+                .Select(segment => char.ToUpperInvariant(segment[0]) + segment[1..]));
     }
 }
 #endif

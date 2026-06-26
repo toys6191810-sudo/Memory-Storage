@@ -28,7 +28,7 @@ public sealed class MemoryStorageAccessibilityService : AccessibilityService
 
         var packageName = e.PackageName?.ToString() ?? string.Empty;
 
-        if (string.IsNullOrWhiteSpace(packageName) || packageName.Equals(PackageName, StringComparison.OrdinalIgnoreCase))
+        if (!AndroidUsageTracker.IsTrackableApplicationPackage(packageName))
         {
             return;
         }
